@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Globe, Smartphone, Zap, Shield, Cpu, Palette, Rocket, Star, Target } from "lucide-react";
 import { useEffect, useState } from "react";
 
+
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
 

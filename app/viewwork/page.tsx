@@ -2,12 +2,23 @@
 
 import { motion } from "framer-motion";
 import { Star, Calendar, Users, Globe, Code } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from 'next/image';
 
 export default function ViewWork() {
   const [filter, setFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Set page title when component mounts
+  useEffect(() => {
+    document.title = 'Our Portfolio | Henixa Digital Solutions';
+    
+    // Add meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Browse our successful web development projects and digital solutions portfolio');
+    }
+  }, []);
 
   const projects = [
     {
@@ -279,12 +290,12 @@ export default function ViewWork() {
               Let's discuss how we can help your business achieve digital excellence.
             </p>
             <div className="flex justify-center">
-             <button 
-  onClick={() => window.location.href = "/getstarted"}
-  className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-cyan-500/30 transition-all hover:scale-105 active:scale-95"
->
-  Start Your Project
-</button>
+              <button 
+                onClick={() => window.location.href = "/getstarted"}
+                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-cyan-500/30 transition-all hover:scale-105 active:scale-95"
+              >
+                Start Your Project
+              </button>
             </div>
           </motion.div>
         </div>

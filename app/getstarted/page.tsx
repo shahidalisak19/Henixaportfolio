@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, MessageSquare, Calendar, Clock, Phone, CheckCircle, ArrowRight } from "lucide-react";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 
 type FormData = {
   name: string;
@@ -24,6 +24,17 @@ export default function GetStarted() {
     timeline: "",
     description: ""
   });
+
+  // Set page title when component mounts
+  useEffect(() => {
+    document.title = 'Get Started | Contact Henixa Digital Agency';
+    
+    // Add meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Start your project with Henixa. Contact us for web development, mobile apps, and digital solutions');
+    }
+  }, []);
 
   const projectTypes: string[] = [
     "Web Development",
