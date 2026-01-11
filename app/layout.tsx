@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   keywords: ["web development", "digital agency", "mobile apps", "UI/UX design", "Henixa"],
   authors: [{ name: "Henixa" }],
   metadataBase: new URL('https://henixaportfolio.vercel.app'),
+  // ADD THE VERIFICATION HERE:
+  verification: {
+    google: "rBqpNJ_UzTe2lm8I25aXiwP5tdGbHNezw8M8AcrJQJ4",
+  },
   openGraph: {
     type: 'website',
     url: 'https://henixaportfolio.vercel.app',
@@ -41,6 +45,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        {/* ALSO ADD THE META TAG DIRECTLY: */}
+        <meta name="google-site-verification" content="rBqpNJ_UzTe2lm8I25aXiwP5tdGbHNezw8M8AcrJQJ4" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
