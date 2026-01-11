@@ -5,8 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-     // disallow: '/private/',
+      disallow: ['/private/', '/admin/'],
     },
     sitemap: 'https://henixaportfolio.vercel.app/sitemap.xml',
+    host: 'https://henixaportfolio.vercel.app',
   }
 }
