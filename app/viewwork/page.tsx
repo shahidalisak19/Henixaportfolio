@@ -1,22 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, Calendar, Users, Globe, Code } from "lucide-react";
+import { ArrowRight, Sparkles, Star, Calendar, Users, Globe, Code, Menu, X, Target, Award, CheckCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from 'next/image';
 
 export default function ViewWork() {
-  const [filter, setFilter] = useState("all");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Set page title when component mounts
   useEffect(() => {
-    document.title = 'Our Portfolio | Henixa Digital Solutions';
+    document.title = 'Our Portfolio | Henixa Software Solutions';
     
     // Add meta description
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Browse our successful web development projects and digital solutions portfolio');
+      metaDescription.setAttribute('content', 'Browse our successful software development projects and digital solutions portfolio at Henixa Software Development Company');
     }
   }, []);
 
@@ -27,43 +27,47 @@ export default function ViewWork() {
       client: "Global Finance Corp",
       description: "Financial management dashboard for enterprise-level accounting and reporting.",
       category: ["web"],
-      tags: ["React", "Node.js", "Accounting", "Dashboard"],
+      tags: ["React", "Node.js", "TypeScript", "PostgreSQL"],
       stats: { clients: "Corporate", rating: 4.9, duration: "4 months" },
-      color: "from-blue-500 to-purple-600",
-      image: "project-1.png"
+      color: "from-emerald-600 to-teal-600",
+      bgColor: "bg-gradient-to-br from-emerald-600/10 to-teal-600/10",
+      image: "/project-1.png"
     },
     {
       id: 2,
-      title: "Healthcare Management App",
+      title: "Healthcare Management System",
       client: "MediCare Solutions",
       description: "Patient portal and appointment scheduling system for healthcare providers.",
-      category: ["mobile"],
-      tags: ["React Native", "Healthcare", "Booking", "Secure"],
+      category: ["web", "mobile"],
+      tags: ["React Native", "Python", "Django", "MongoDB"],
       stats: { clients: "Medical", rating: 4.8, duration: "5 months" },
-      color: "from-emerald-500 to-cyan-600",
-      image: "project-2.png"
+      color: "from-green-600 to-emerald-600",
+      bgColor: "bg-gradient-to-br from-green-600/10 to-emerald-600/10",
+      image: "/project-2.png"
     },
     {
       id: 3,
-      title: "Online Retail Store",
+      title: "E-commerce Retail Platform",
       client: "UrbanStyle Fashion",
       description: "Complete e-commerce solution with inventory management and payment processing.",
       category: ["web", "ecommerce"],
-      tags: ["Next.js", "E-commerce", "Payment", "Inventory"],
+      tags: ["Next.js", "Node.js", "PostgreSQL", "Redis"],
       stats: { clients: "Retail", rating: 4.7, duration: "6 months" },
-      color: "from-purple-500 to-pink-600",
-      image: "project-3.png"
+      color: "from-teal-600 to-cyan-600",
+      bgColor: "bg-gradient-to-br from-teal-600/10 to-cyan-600/10",
+      image: "/project-3.png"
     },
     {
       id: 4,
       title: "Real Estate Portal",
       client: "Prime Properties Ltd",
       description: "Property listing platform with virtual tours and agent management.",
-      category: ["web", "design"],
-      tags: ["UI/UX", "Property", "Virtual Tour", "Listing"],
+      category: ["web", "mobile"],
+      tags: ["React", "Java", "Spring Boot", "MySQL"],
       stats: { clients: "Real Estate", rating: 4.9, duration: "3 months" },
-      color: "from-amber-500 to-orange-600",
-      image: "project-4.png"
+      color: "from-amber-600 to-orange-600",
+      bgColor: "bg-gradient-to-br from-amber-600/10 to-orange-600/10",
+      image: "/project-4.png"
     },
     {
       id: 5,
@@ -71,10 +75,11 @@ export default function ViewWork() {
       client: "Swift Logistics Inc",
       description: "Real-time shipment tracking and fleet management platform.",
       category: ["web", "mobile"],
-      tags: ["React", "Tracking", "Logistics", "Maps"],
+      tags: ["React", "Node.js", "AWS", "Docker"],
       stats: { clients: "Logistics", rating: 4.8, duration: "7 months" },
-      color: "from-green-500 to-teal-600",
-      image: "project-5.png"
+      color: "from-slate-600 to-gray-600",
+      bgColor: "bg-gradient-to-br from-slate-600/10 to-gray-600/10",
+      image: "/project-5.png"
     },
     {
       id: 6,
@@ -82,10 +87,11 @@ export default function ViewWork() {
       client: "LearnPro Academy",
       description: "Online learning management system with course creation and student tracking.",
       category: ["web"],
-      tags: ["Vue.js", "Education", "LMS", "Courses"],
+      tags: ["Vue.js", "Python", "Django", "PostgreSQL"],
       stats: { clients: "Education", rating: 4.6, duration: "5 months" },
-      color: "from-orange-500 to-red-600",
-      image: "project-6.png"
+      color: "from-cyan-600 to-teal-600",
+      bgColor: "bg-gradient-to-br from-cyan-600/10 to-teal-600/10",
+      image: "/project-6.png"
     },
     {
       id: 7,
@@ -93,10 +99,11 @@ export default function ViewWork() {
       client: "FoodHub Group",
       description: "Complete restaurant management solution with ordering and delivery features.",
       category: ["mobile", "web"],
-      tags: ["Flutter", "Restaurant", "Ordering", "Delivery"],
+      tags: ["Flutter", "Node.js", "MongoDB", "Firebase"],
       stats: { clients: "Hospitality", rating: 4.7, duration: "4 months" },
-      color: "from-fuchsia-500 to-rose-600",
-      image: "project-7.png"
+      color: "from-emerald-600 to-green-600",
+      bgColor: "bg-gradient-to-br from-emerald-600/10 to-green-600/10",
+      image: "/project-7.png"
     },
     {
       id: 8,
@@ -104,201 +111,454 @@ export default function ViewWork() {
       client: "StayWell Hotels",
       description: "Hotel reservation platform with room management and guest services.",
       category: ["web", "mobile"],
-      tags: ["React", "Booking", "Hotels", "Reservation"],
+      tags: ["React", "Next.js", "TypeScript", "MySQL"],
       stats: { clients: "Hospitality", rating: 4.9, duration: "3 months" },
-      color: "from-blue-400 to-indigo-600",
-      image: "project-8.png"
+      color: "from-teal-600 to-emerald-600",
+      bgColor: "bg-gradient-to-br from-teal-600/10 to-emerald-600/10",
+      image: "/project-8.png"
     }
   ];
 
   const filteredProjects = projects.filter(project => 
     project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    project.client.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const stats = [
+    { value: "200+", label: "Software Projects Delivered", icon: <Code className="w-5 h-5" /> },
+    { value: "99.8%", label: "Client Satisfaction Rate", icon: <Star className="w-5 h-5" /> },
+    { value: "50+", label: "Technologies & Frameworks", icon: <Globe className="w-5 h-5" /> },
+    { value: "24/7", label: "Development Support", icon: <Award className="w-5 h-5" /> },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-blue-900 text-white">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10" />
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM5QzkyQUMiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0di00aC0ydjRoLTR2Mmg0djRoMnYtNGg0di0yaC00em0wLTMwVjBoLTJ2NGgtNHYyaDR2NGgyVjZoNFY0aC00ek02IDM0di00SDR2NEgwdjJoNHY0aDJ2LTRoNHYtMkg2ek02IDRWMEg0djRIMHYyaDR2NGgyVjZoNFY0SDZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20" />
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-stone-100 text-stone-900 overflow-hidden relative">
+      {/* Animated Background */}
+      <div className="fixed inset-0 pointer-events-none opacity-30">
+        <motion.div
+          className="absolute w-96 h-96 bg-gradient-to-br from-olive-400/20 to-emerald-400/20 rounded-full blur-3xl"
+          animate={{
+            x: Math.random() * 100 - 50,
+            y: Math.random() * 100 - 50,
+          }}
+          transition={{ type: "spring", damping: 30, repeat: Infinity, repeatType: "reverse", duration: 20 }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-teal-400/20 to-green-400/20 rounded-full blur-3xl"
+          animate={{
+            x: -(Math.random() * 80 - 40),
+            y: -(Math.random() * 80 - 40),
+          }}
+          transition={{ type: "spring", damping: 25, repeat: Infinity, repeatType: "reverse", duration: 25 }}
+        />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10">
+        {/* Professional Header with Navigation - Matching Main Page */}
+        <header className="border-b border-stone-200/50 bg-stone-50/80 backdrop-blur-md sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              {/* Logo */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center gap-0.5"
+              >
+                <a href="/">
+                  <img 
+                    src="/logo1.png" 
+                    alt="Henixa Logo" 
+                    className="w-25 h-25 object-contain -mr-5"
+                  />
+                </a>
+                <div>
+                  <h1 className="text-xl font-bold text-stone-900">HENIXA</h1>
+                  <p className="text-xs text-stone-600">Software Solutions</p>
+                </div>
+              </motion.div>
+
+              {/* Desktop Navigation */}
+              <nav className="hidden lg:flex items-center gap-8">
+                <a href="/" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Home</a>
+                <a href="#portfolio" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Portfolio</a>
+                <a href="#technologies" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Technologies</a>
+                <a href="#clients" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Clients</a>
+                <a href="/getstarted" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Contact</a>
+              </nav>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 text-stone-700"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="md:hidden mt-4 pb-4 border-t border-stone-200 pt-4 space-y-3"
+              >
+                <a href="/" className="block text-stone-700 hover:text-emerald-700 font-medium">Home</a>
+                <a href="#portfolio" className="block text-stone-700 hover:text-emerald-700 font-medium">Portfolio</a>
+                <a href="#technologies" className="block text-stone-700 hover:text-emerald-700 font-medium">Technologies</a>
+                <a href="#clients" className="block text-stone-700 hover:text-emerald-700 font-medium">Clients</a>
+                <a href="/getstarted" className="block text-stone-700 hover:text-emerald-700 font-medium">Contact</a>
+              </motion.div>
+            )}
+          </div>
+        </header>
+
+        {/* Hero Section */}
+        <section className="max-w-7xl mx-auto px-6 py-20 md:py-32">
+          <div className="text-center max-w-4xl mx-auto space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-full border border-emerald-200"
+            >
+              <Sparkles className="w-4 h-4 text-emerald-700" />
+              <span className="text-sm font-semibold text-emerald-800">Our Software Development Portfolio</span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-5xl md:text-7xl font-bold text-stone-900 leading-tight"
+            >
+              Software Projects That{" "}
+              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 bg-clip-text text-transparent">
+                Deliver Results
+              </span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-xl text-stone-600 leading-relaxed max-w-3xl mx-auto"
+            >
+              Explore our portfolio of successful software development projects across various industries. Each solution is custom-built to solve specific business challenges.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="max-w-7xl mx-auto px-6 py-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                className="bg-gradient-to-br from-stone-50 to-amber-50/50 border border-stone-200 rounded-xl p-6 text-center backdrop-blur-sm hover:shadow-lg transition-all"
+              >
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-lg mb-4 text-stone-50">
+                  {stat.icon}
+                </div>
+                <div className="text-3xl font-bold text-stone-900 mb-2">{stat.value}</div>
+                <div className="text-sm text-stone-600 font-medium">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Search Section */}
+        <section className="max-w-4xl mx-auto px-6 py-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              <span className="block">Client</span>
-              <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Success Stories
-              </span>
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              Discover how we've helped businesses across industries transform their digital presence.
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search projects by technology, industry, or client..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-6 py-4 pl-12 bg-white/80 backdrop-blur-sm border-2 border-emerald-200 rounded-xl text-stone-900 placeholder-stone-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all"
+              />
+              <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-emerald-600">
+                <Target className="w-5 h-5" />
+              </div>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-stone-500 hover:text-stone-700"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+            <p className="text-sm text-stone-500 mt-3 text-center">
+              Try searching for: "React", "Healthcare", "E-commerce", or client names
             </p>
           </motion.div>
-        </div>
-      </div>
+        </section>
 
-      {/* Stats Bar */}
-      <div className="relative -mt-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {[
-              { value: "150+", label: "Projects Delivered", icon: <Code className="w-5 h-5" /> },
-              { value: "99.8%", label: "Client Satisfaction", icon: <Star className="w-5 h-5" /> },
-              { value: "15+", label: "Industries Served", icon: <Globe className="w-5 h-5" /> },
-            ].map((stat, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 text-center">
-                <div className="inline-flex items-center justify-center p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 mb-3">
-                  <div className="text-cyan-300">{stat.icon}</div>
-                </div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
-                  {stat.value}
-                </div>
-                <div className="text-gray-300 text-sm mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Projects Grid - REMOVED FILTER SECTION */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              whileHover={{ y: -8 }}
-              className="group"
-            >
-              {/* Project Card */}
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-white/10 shadow-2xl h-full flex flex-col">
-                {/* Image Section */}
-                <div className="relative h-48 overflow-hidden flex-shrink-0">
-                  <Image
-                    src={`/projects/${project.image}`}
-                    alt={`${project.title} - ${project.client}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <div className="text-3xl font-bold text-white/90 mb-1">{project.client.split(' ')[0]}</div>
-                      <div className="text-white/70 text-xs">{project.stats.clients} Sector</div>
+        {/* Portfolio Grid */}
+        <section id="portfolio" className="max-w-7xl mx-auto px-6 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -8 }}
+                className="group h-full"
+              >
+                {/* Project Card */}
+                <div className={`${project.bgColor} border border-stone-200 rounded-2xl p-6 h-full flex flex-col backdrop-blur-sm hover:shadow-xl transition-all duration-300 group-hover:border-emerald-300`}>
+                  {/* Project Header */}
+                  <div className="mb-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className={`w-14 h-14 bg-gradient-to-br ${project.color} rounded-xl flex items-center justify-center text-white shadow-lg`}>
+                        <Code className="w-6 h-6" />
+                      </div>
+                      <div className="text-right">
+                        <div className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-100 text-emerald-800 text-sm font-semibold rounded-full">
+                          <Star className="w-3 h-3" />
+                          {project.stats.rating}/5
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
-                </div>
-
-                {/* Content */}
-                <div className="p-6 flex-grow flex flex-col">
-                  <div className="mb-4">
-                    <h3 className="text-xl font-bold text-white mb-1">
+                    
+                    <h3 className="text-2xl font-bold text-stone-900 mb-2 group-hover:text-emerald-800 transition-colors">
                       {project.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-sm text-cyan-300 mb-2">
+                    <div className="flex items-center gap-2 text-stone-600 mb-3">
                       <span className="font-medium">Client:</span>
-                      <span>{project.client}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-gray-400" />
-                      <span className="text-sm text-gray-400">{project.stats.duration} timeline</span>
+                      <span className="text-emerald-700 font-semibold">{project.client}</span>
                     </div>
                   </div>
 
-                  <p className="text-gray-300 text-sm mb-6 flex-grow">
+                  {/* Project Description */}
+                  <p className="text-stone-600 mb-6 flex-grow">
                     {project.description}
                   </p>
 
-                  {/* Tags */}
+                  {/* Technology Tags */}
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.tags.map((tag, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 bg-white/5 text-xs text-gray-300 rounded-full border border-white/10"
+                        className="px-3 py-1 bg-white/50 text-xs font-medium text-stone-700 rounded-full border border-stone-200 hover:border-emerald-300 hover:text-emerald-800 transition-colors"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  {/* Stats */}
-                  <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-auto">
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-cyan-400" />
-                      <span className="text-sm text-gray-300">{project.stats.clients} Clients</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Star className="w-4 h-4 text-amber-400" />
-                      <span className="text-sm font-semibold">{project.stats.rating}/5</span>
+                  {/* Project Footer */}
+                  <div className="pt-6 border-t border-stone-200 mt-auto">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-emerald-600" />
+                          <span className="text-sm text-stone-600">{project.stats.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4 text-emerald-600" />
+                          <span className="text-sm text-stone-600">{project.stats.clients}</span>
+                        </div>
+                      </div>
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-10 h-10 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-full flex items-center justify-center text-white cursor-pointer hover:shadow-lg transition-shadow"
+                        onClick={() => {
+                          // Add your project detail modal or navigation here
+                          alert(`Viewing details for ${project.title}`);
+                        }}
+                      >
+                        <ArrowRight className="w-5 h-5" />
+                      </motion.div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
 
-        {/* Empty State */}
-        {filteredProjects.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16"
-          >
-            <div className="text-gray-400 mb-4">No projects found matching your criteria</div>
-            <button
-              onClick={() => {
-                setSearchQuery("");
-              }}
-              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-medium hover:shadow-lg transition-shadow"
+          {/* Empty State */}
+          {filteredProjects.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-16"
             >
-              Reset Search
-            </button>
-          </motion.div>
-        )}
-      </div>
+              <div className="text-stone-500 mb-4">No projects found matching your search criteria</div>
+              <button
+                onClick={() => setSearchQuery("")}
+                className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-stone-50 rounded-lg font-medium hover:shadow-lg transition-shadow flex items-center gap-2 mx-auto"
+              >
+                <X className="w-4 h-4" />
+                Clear Search
+              </button>
+            </motion.div>
+          )}
+        </section>
 
-      {/* CTA Section */}
-      <div className="relative mt-16">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10" />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+        {/* Technologies Used */}
+        <section id="technologies" className="max-w-7xl mx-auto px-6 py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-6"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold">
-              <span className="block">Ready to Be Our</span>
-              <span className="block bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Next Success Story?
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Let's discuss how we can help your business achieve digital excellence.
+            <h3 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
+              Technologies We Master
+            </h3>
+            <p className="text-stone-600 max-w-2xl mx-auto">
+              Our projects leverage a wide range of modern technologies and frameworks
             </p>
-            <div className="flex justify-center">
-              <button 
-                onClick={() => window.location.href = "/getstarted"}
-                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-cyan-500/30 transition-all hover:scale-105 active:scale-95"
+          </motion.div>
+
+          <div className="flex flex-wrap justify-center gap-4">
+            {["React/Next.js", "Node.js", "Python/Django", "Java/Spring", "TypeScript", "React Native", "Flutter", "AWS/Azure", "Docker/Kubernetes", "PostgreSQL/MongoDB", "GraphQL/REST", "Redis", "Firebase", "Vue.js", "PHP/Laravel"].map((tech, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ scale: 1.1, y: -4 }}
+                className="px-6 py-3 bg-gradient-to-br from-stone-50 to-amber-50/50 border border-emerald-200 rounded-lg font-semibold text-stone-700 hover:shadow-md transition-all cursor-default"
               >
-                Start Your Project
-              </button>
+                {tech}
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Client Testimonials */}
+        <section id="clients" className="max-w-7xl mx-auto px-6 py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h3 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
+              What Our Clients Say
+            </h3>
+            <p className="text-stone-600 max-w-2xl mx-auto">
+              Success stories from businesses we've helped transform
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: "Henixa delivered our financial platform ahead of schedule with exceptional quality. Their team's expertise in React and Node.js was impressive.",
+                author: "John Carter",
+                position: "CTO, Global Finance Corp",
+                rating: 5
+              },
+              {
+                quote: "The healthcare management system they built for us has revolutionized our patient care process. Highly professional team.",
+                author: "Sarah Johnson",
+                position: "Director, MediCare Solutions",
+                rating: 5
+              },
+              {
+                quote: "Our e-commerce platform handles thousands of transactions daily without issues. Henixa's scalable architecture is outstanding.",
+                author: "Michael Chen",
+                position: "CEO, UrbanStyle Fashion",
+                rating: 5
+              }
+            ].map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-gradient-to-br from-stone-50 to-amber-50/50 border border-stone-200 rounded-2xl p-8 backdrop-blur-sm"
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-stone-600 italic mb-6">{testimonial.quote}</p>
+                <div>
+                  <div className="font-semibold text-stone-900">{testimonial.author}</div>
+                  <div className="text-sm text-emerald-700">{testimonial.position}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section id="contact" className="max-w-7xl mx-auto px-6 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-br from-emerald-600 via-teal-600 to-green-600 rounded-3xl p-12 md:p-16 text-center relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
+            
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full border border-white/30 mb-6">
+                <CheckCircle className="w-4 h-4 text-white" />
+                <span className="text-sm font-semibold text-white">Ready to Start Your Project</span>
+              </div>
+              
+              <h3 className="text-4xl md:text-5xl font-bold text-stone-50 mb-6">
+                Ready to Be Our Next Success Story?
+              </h3>
+              <p className="text-xl text-stone-100 mb-8 max-w-2xl mx-auto">
+                Let's discuss how we can transform your business with custom software solutions
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <motion.a
+                  href="/getstarted"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-3 bg-white text-emerald-700 rounded-xl font-semibold hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                >
+                  Start Your Project <ArrowRight className="w-4 h-4" />
+                </motion.a>
+                <motion.a
+                  href="/"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-3 bg-transparent border-2 border-white text-white rounded-xl font-semibold hover:bg-white/10 transition-colors"
+                >
+                  Back to Home
+                </motion.a>
+              </div>
             </div>
           </motion.div>
-        </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="border-t border-stone-200 bg-stone-50/50 backdrop-blur-sm">
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <div className="text-center text-stone-600">
+              <p className="font-semibold mb-2">© 2024 Henixa Software Development Company</p>
+              <p className="text-sm">Transforming Businesses Through Innovative Software Solutions</p>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
