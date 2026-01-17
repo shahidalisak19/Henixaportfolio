@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, Calendar, Clock, CheckCircle, ArrowRight, Code, Sparkles, Menu, X } from "lucide-react";
+import { Mail, MessageSquare, Calendar, Clock, CheckCircle, ArrowRight, Sparkles, Menu, X } from "lucide-react";
 import { useState, ChangeEvent, useEffect } from "react";
 
 type FormData = {
@@ -76,6 +76,12 @@ export default function GetStarted() {
     }));
   };
 
+  // Direct email link - opens email without form validation
+  const openEmailDirect = () => {
+    window.location.href = 'mailto:henixa73@gmail.com';
+  };
+
+  // Form submission with validation - sends pre-filled email
   const handleSubmit = () => {
     if (!formData.name || !formData.email || !formData.projectType || !formData.timeline || !formData.description) {
       alert('Please fill in all required fields');
@@ -147,24 +153,25 @@ I'd like to learn more about your services.`;
       <div className="relative z-10">
         {/* Professional Header */}
         <header className="border-b border-stone-200/50 bg-stone-50/80 backdrop-blur-md sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="max-w-7xl mx-auto px-6 py-1">
             <div className="flex items-center justify-between">
-                  {/* Logo */}
-             <motion.div
-  initial={{ opacity: 0, x: -20 }}
-  animate={{ opacity: 1, x: 0 }}
-  className="flex items-center gap-0.5" // reduced gap from 3 to 1.5
->
-  <img 
-    src="/logo1.png" 
-    alt="Henixa Logo" 
-    className="w-25 h-25 object-contain -mr-5"
-  />
-  <div>
-    <h1 className="text-xl font-bold text-stone-900">HENIXA</h1>
-    <p className="text-xs text-stone-600">Software Solutions</p>
-  </div>
-</motion.div>
+              {/* Logo */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex items-center gap-0.5"
+              >
+                <img 
+                  src="/logo1.png" 
+                  alt="Henixa Logo" 
+                  className="w-25 h-25 object-contain -mr-5"
+                />
+                <div>
+                  <h1 className="text-xl font-bold text-stone-900">HENIXA</h1>
+                  <p className="text-xs text-stone-600">Software Solutions</p>
+                </div>
+              </motion.div>
+
               <nav className="hidden lg:flex items-center gap-8">
                 <a href="/" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Home</a>
                 <a href="#services" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Services</a>
@@ -272,10 +279,10 @@ I'd like to learn more about your services.`;
                 <p className="text-stone-600">Choose your preferred way to reach us</p>
               </div>
 
-              {/* Email Option */}
+              {/* Email Option - NOW OPENS EMAIL DIRECTLY */}
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                onClick={handleSubmit}
+                onClick={openEmailDirect}
                 className="bg-gradient-to-br from-stone-50 to-amber-50/50 border border-stone-200 rounded-xl p-6 cursor-pointer hover:shadow-lg transition-all group"
               >
                 <div className="flex items-start gap-4">

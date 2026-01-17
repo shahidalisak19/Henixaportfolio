@@ -159,7 +159,7 @@ export default function ViewWork() {
       <div className="relative z-10">
         {/* Professional Header with Navigation - Matching Main Page */}
         <header className="border-b border-stone-200/50 bg-stone-50/80 backdrop-blur-md sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="max-w-7xl mx-auto px-6 py-1">
             <div className="flex items-center justify-between">
               {/* Logo */}
               <motion.div
