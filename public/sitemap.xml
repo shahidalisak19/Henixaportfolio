@@ -3,14 +3,25 @@
   <url>
     <loc>https://henixaportfolio.vercel.app/</loc>
     <lastmod>2026-01-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://henixaportfolio.vercel.app/about</loc>
     <lastmod>2026-01-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
-  ...
+  <url>
+    <loc>https://henixaportfolio.vercel.app/viewwork</loc>
+    <lastmod>2026-01-17</lastmod>
+  </url>
+  <url>
+    <loc>https://henixaportfolio.vercel.app/getstarted</loc>
+    <lastmod>2026-01-17</lastmod>
+  </url>
+  <url>
+    <loc>https://henixaportfolio.vercel.app/services</loc>
+    <lastmod>2026-01-17</lastmod>
+  </url>
+  <url>
+    <loc>https://henixaportfolio.vercel.app/contact</loc>
+    <lastmod>2026-01-17</lastmod>
+  </url>
 </urlset>
