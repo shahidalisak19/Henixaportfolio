@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://henixaportfolio.vercel.app
+
+# Sitemaps
+Sitemap: https://henixaportfolio.vercel.app/sitemap.xml
