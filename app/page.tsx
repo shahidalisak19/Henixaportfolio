@@ -57,6 +57,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-stone-100 text-stone-900 overflow-hidden relative">
+      
       {/* Animated Background */}
       <div className="fixed inset-0 pointer-events-none opacity-30">
         <motion.div
@@ -81,6 +82,7 @@ export default function Home() {
       <div className="relative z-10">
         {/* Professional Header with Navigation */}
         <header className="border-b border-stone-200/50 bg-stone-50/80 backdrop-blur-md sticky top-0 z-50">
+        
          <div className="max-w-7xl mx-auto px-6 py-1">
             <div className="flex items-center justify-between">
               {/* Logo */}

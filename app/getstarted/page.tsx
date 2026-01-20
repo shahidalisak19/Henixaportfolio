@@ -129,6 +129,7 @@ I'd like to learn more about your services.`;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-stone-100 text-stone-900 overflow-hidden relative">
+      
       {/* Animated Background */}
       <div className="fixed inset-0 pointer-events-none opacity-30">
         <motion.div
