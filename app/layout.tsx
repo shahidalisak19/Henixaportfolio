@@ -273,7 +273,7 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
         <meta name="theme-color" content="#000000" />
-
+<meta name="google-adsense-account" content="ca-pub-1212177675139054"></meta>
         {/* Google Verification */}
         <meta
           name="google-site-verification"
