@@ -1,11 +1,23 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Globe, Smartphone, Zap, Shield, Cpu, Palette, Rocket, Star, Target, Code, Database, Cloud, Server, Menu, X } from "lucide-react";
+import { ArrowRight, Sparkles, Globe, Smartphone, Zap, Shield, Cpu, Palette, Rocket, Star, Target, Code, Database, Cloud, Server, Menu, X, ChevronRight, Terminal, Layers, Users, CheckCircle, Zap as Lightning, Github, Linkedin, Twitter, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hoveredService, setHoveredService] = useState<number | null>(null);
+  const [floatingShapes, setFloatingShapes] = useState<Array<{
+    id: number;
+    x: number;
+    y: number;
+    size: number;
+    delay: number;
+    duration: number;
+    color: string;
+  }>>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -14,17 +26,29 @@ export default function Home() {
       setMousePosition({ x, y });
     };
 
+    // Generate shapes only on client-side to avoid hydration mismatch
+    const shapes = Array.from({ length: 8 }).map((_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 40 + 20,
+      delay: Math.random() * 2,
+      duration: Math.random() * 10 + 10,
+      color: i % 3 === 0 ? 'from-purple-500/10' : i % 3 === 1 ? 'from-blue-500/10' : 'from-pink-500/10'
+    }));
+    setFloatingShapes(shapes);
+
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const services = [
-    { icon: <Code className="w-6 h-6" />, text: "Custom Software Development", color: "from-emerald-600 to-teal-600", bg: "bg-gradient-to-br from-emerald-600/10 to-teal-600/10" },
-    { icon: <Globe className="w-6 h-6" />, text: "Web Application Development", color: "from-green-600 to-emerald-600", bg: "bg-gradient-to-br from-green-600/10 to-emerald-600/10" },
-    { icon: <Smartphone className="w-6 h-6" />, text: "Mobile App Development", color: "from-teal-600 to-cyan-600", bg: "bg-gradient-to-br from-teal-600/10 to-cyan-600/10" },
-    { icon: <Database className="w-6 h-6" />, text: "Database Architecture", color: "from-amber-600 to-orange-600", bg: "bg-gradient-to-br from-amber-600/10 to-orange-600/10" },
-    { icon: <Cloud className="w-6 h-6" />, text: "Cloud Solutions & DevOps", color: "from-slate-600 to-gray-600", bg: "bg-gradient-to-br from-slate-600/10 to-gray-600/10" },
-    { icon: <Server className="w-6 h-6" />, text: "API & Backend Services", color: "from-cyan-600 to-teal-600", bg: "bg-gradient-to-br from-cyan-600/10 to-teal-600/10" },
+    { icon: <Code className="w-6 h-6" />, text: "Custom Software Development", color: "from-purple-500 to-pink-500", bg: "bg-gradient-to-br from-purple-500/10 to-pink-500/5", hoverColor: "hover:from-purple-500/20 hover:to-pink-500/10" },
+    { icon: <Globe className="w-6 h-6" />, text: "Web Application Development", color: "from-blue-500 to-cyan-500", bg: "bg-gradient-to-br from-blue-500/10 to-cyan-500/5", hoverColor: "hover:from-blue-500/20 hover:to-cyan-500/10" },
+    { icon: <Smartphone className="w-6 h-6" />, text: "Mobile App Development", color: "from-green-500 to-emerald-500", bg: "bg-gradient-to-br from-green-500/10 to-emerald-500/5", hoverColor: "hover:from-green-500/20 hover:to-emerald-500/10" },
+    { icon: <Database className="w-6 h-6" />, text: "Database Architecture", color: "from-orange-500 to-red-500", bg: "bg-gradient-to-br from-orange-500/10 to-red-500/5", hoverColor: "hover:from-orange-500/20 hover:to-red-500/10" },
+    { icon: <Cloud className="w-6 h-6" />, text: "Cloud Solutions & DevOps", color: "from-indigo-500 to-purple-500", bg: "bg-gradient-to-br from-indigo-500/10 to-purple-500/5", hoverColor: "hover:from-indigo-500/20 hover:to-purple-500/10" },
+    { icon: <Server className="w-6 h-6" />, text: "API & Backend Services", color: "from-cyan-500 to-blue-500", bg: "bg-gradient-to-br from-cyan-500/10 to-blue-500/5", hoverColor: "hover:from-cyan-500/20 hover:to-blue-500/10" },
   ];
 
   const stats = [
@@ -34,287 +58,507 @@ export default function Home() {
     { value: "24/7", label: "Development Support", icon: <Shield className="w-5 h-5" /> },
   ];
 
-  // Comprehensive software development technologies
   const technologies = [
-    // Frontend
     "React.js", "Next.js", "Vue.js", "Angular", "TypeScript", "JavaScript",
-    // Backend
     "Node.js", "Express.js", "Python", "Django", "FastAPI", "Java", "Spring Boot",
     "PHP", "Laravel", ".NET Core", "Ruby on Rails", "Go", "Rust",
-    // Mobile
     "React Native", "Flutter", "Swift", "Kotlin", "Ionic",
-    // Databases
     "PostgreSQL", "MySQL", "MongoDB", "Redis", "Cassandra", "Oracle DB",
     "Firebase", "DynamoDB",
-    // Cloud & DevOps
     "AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Jenkins",
     "GitHub Actions", "Terraform", "Ansible",
-    // API & Integration
     "GraphQL", "REST API", "gRPC", "WebSockets", "Microservices",
-    // Others
     "TensorFlow", "Machine Learning", "Blockchain", "WebAssembly"
   ];
 
+  // Navigation handler
+  const handleNavigation = (path: string) => {
+    if (path.startsWith('/')) {
+      router.push(path);
+    } else if (path.startsWith('#')) {
+      const element = document.getElementById(path.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-stone-100 text-stone-900 overflow-hidden relative">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white overflow-hidden relative">
       
-      {/* Animated Background */}
-      <div className="fixed inset-0 pointer-events-none opacity-30">
-        <motion.div
-          className="absolute w-96 h-96 bg-gradient-to-br from-olive-400/20 to-emerald-400/20 rounded-full blur-3xl"
-          animate={{
-            x: mousePosition.x * 100 - 50,
-            y: mousePosition.y * 100 - 50,
-          }}
-          transition={{ type: "spring", damping: 30 }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-teal-400/20 to-green-400/20 rounded-full blur-3xl"
-          animate={{
-            x: -(mousePosition.x * 80 - 40),
-            y: -(mousePosition.y * 80 - 40),
-          }}
-          transition={{ type: "spring", damping: 25 }}
-        />
+      {/* Modern Animated Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Gradient mesh background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/10" />
+        
+        {/* Floating gradient shapes - Only render on client side */}
+        {floatingShapes.length > 0 && floatingShapes.map((shape) => (
+          <motion.div
+            key={shape.id}
+            className={`absolute ${shape.color} rounded-full blur-3xl`}
+            style={{
+              left: `${shape.x}%`,
+              top: `${shape.y}%`,
+              width: `${shape.size}px`,
+              height: `${shape.size}px`,
+            }}
+            animate={{
+              x: [0, Math.sin(shape.id) * 50, 0],
+              y: [0, Math.cos(shape.id) * 50, 0],
+              rotate: 360,
+            }}
+            transition={{
+              duration: shape.duration,
+              repeat: Infinity,
+              ease: "linear",
+              delay: shape.delay,
+            }}
+          />
+        ))}
+        
+        {/* Grid pattern with animation */}
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px] opacity-30" />
       </div>
 
       {/* Main Content */}
       <div className="relative z-10">
-        {/* Professional Header with Navigation */}
-        <header className="border-b border-stone-200/50 bg-stone-50/80 backdrop-blur-md sticky top-0 z-50">
-        
-         <div className="max-w-7xl mx-auto px-6 py-1">
+        {/* Sleek Header */}
+        <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/50 backdrop-blur-xl border-b border-gray-800/50">
+          <div className="max-w-7xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               {/* Logo */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="flex items-center gap-0.5"
+                className="flex items-center gap-4 group cursor-pointer"
+                onClick={() => handleNavigation('/')}
               >
-                <img 
-                  src="/logo1.png" 
-                  alt="Henixa Logo" 
-                  className="w-25 h-25 object-contain -mr-5"
-                />
+                <div className="relative">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur opacity-20 group-hover:opacity-30 transition-opacity"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.2, 0.3, 0.2],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <img 
+                    src="/logo1.png" 
+                    alt="Henixa Logo" 
+                    className="w-24 h-24 object-contain relative z-10 -mr-5"
+                  />
+                </div>
                 <div>
-                  <h1 className="text-xl font-bold text-stone-900">HENIXA</h1>
-                  <p className="text-xs text-stone-600">Software Solutions</p>
+                  <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    HENIXA
+                  </h1>
+                  <p className="text-sm text-gray-400 font-medium">Software Solutions</p>
                 </div>
               </motion.div>
 
-              {/* Desktop Navigation */}
-              <nav className="hidden lg:flex items-center gap-8">
-                <a href="#services" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Services</a>
-                <a href="#technologies" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Technologies</a>
-                <a href="#about" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">About</a>
-                <a href="/viewwork" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Projects</a>
-                <a href="/getstarted" className="text-stone-700 hover:text-emerald-700 transition-colors font-medium">Contact</a>
+              {/* Desktop Navigation - FIXED */}
+              <nav className="hidden lg:flex items-center gap-6">
+                <button
+                  onClick={() => handleNavigation('#services')}
+                  className="text-gray-300 hover:text-white transition-colors font-medium text-sm relative group"
+                >
+                  <span className="relative z-10">Services</span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
+                </button>
+                <button
+                  onClick={() => handleNavigation('#technologies')}
+                  className="text-gray-300 hover:text-white transition-colors font-medium text-sm relative group"
+                >
+                  <span className="relative z-10">Technologies</span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
+                </button>
+                <button
+                  onClick={() => handleNavigation('#about')}
+                  className="text-gray-300 hover:text-white transition-colors font-medium text-sm relative group"
+                >
+                  <span className="relative z-10">About</span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
+                </button>
+                <button
+                  onClick={() => handleNavigation('/viewwork')}
+                  className="text-gray-300 hover:text-white transition-colors font-medium text-sm relative group"
+                >
+                  <span className="relative z-10">Projects</span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
+                </button>
+                <button
+                  onClick={() => handleNavigation('/getstarted')}
+                  className="text-gray-300 hover:text-white transition-colors font-medium text-sm relative group"
+                >
+                  <span className="relative z-10">Contact</span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300" />
+                </button>
               </nav>
 
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-stone-700"
+                className="lg:hidden p-2 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors relative group"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                {mobileMenuOpen ? <X className="w-6 h-6 relative z-10" /> : <Menu className="w-6 h-6 relative z-10" />}
               </button>
             </div>
-
-            {/* Mobile Menu */}
-            {mobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="lg:hidden mt-4 pb-4 border-t border-stone-200 pt-4 space-y-3"
-              >
-                <a href="#services" className="block text-stone-700 hover:text-emerald-700 font-medium">Services</a>
-                <a href="#technologies" className="block text-stone-700 hover:text-emerald-700 font-medium">Technologies</a>
-                <a href="#about" className="block text-stone-700 hover:text-emerald-700 font-medium">About</a>
-                <a href="/viewwork" className="block text-stone-700 hover:text-emerald-700 font-medium">Projects</a>
-                <a href="/getstarted" className="block text-stone-700 hover:text-emerald-700 font-medium">Contact</a>
-              </motion.div>
-            )}
           </div>
         </header>
 
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-6 py-20 md:py-32">
-          <div className="text-center max-w-4xl mx-auto space-y-8">
+        <section className="min-h-screen flex items-center justify-center px-6 pt-20">
+          <div className="max-w-6xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-full border border-emerald-200"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full border border-purple-500/20 backdrop-blur-sm mb-8"
             >
-              <Sparkles className="w-4 h-4 text-emerald-700" />
-              <span className="text-sm font-semibold text-emerald-800">Professional Software Development Company</span>
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <span className="text-sm font-semibold text-purple-300">Professional Software Development Company</span>
             </motion.div>
 
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-5xl md:text-7xl font-bold text-stone-900 leading-tight"
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8"
             >
-              Custom Software Solutions That{" "}
-              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 bg-clip-text text-transparent">
-                Drive Growth
+              <span className="block text-gray-300">Build The Future</span>
+              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                With Code
               </span>
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-xl text-stone-700 leading-relaxed max-w-3xl mx-auto font-medium"
+              transition={{ delay: 0.2 }}
+              className="text-xl text-gray-400 max-w-2xl mx-auto mb-12"
             >
-              Henixa Software Development Company builds scalable, enterprise-grade custom software solutions that transform businesses. From web applications to mobile apps and cloud services, we deliver excellence.
+              Henixa builds scalable, enterprise-grade custom software solutions that transform businesses. From web applications to mobile apps and cloud services, we deliver excellence.
             </motion.p>
+
+            {/* Stats Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-16"
+            >
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-gray-400">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons in Hero */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center mt-16"
+            >
+              <motion.button
+                onClick={() => handleNavigation('/getstarted')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group px-8 py-3.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all flex items-center justify-center gap-2"
+              >
+                Get Started
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+              <motion.button
+                onClick={() => handleNavigation('/viewwork')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3.5 bg-transparent border-2 border-gray-700 text-gray-300 rounded-xl font-semibold hover:bg-gray-800/30 hover:border-purple-500/50 hover:text-white transition-all"
+              >
+                View Projects
+              </motion.button>
+            </motion.div>
           </div>
         </section>
 
-        {/* Services & Stats Grid */}
-        <section id="services" className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Services */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-8"
-              >
-                <h3 className="text-3xl md:text-4xl font-bold text-stone-900 mb-3">
-                  Software Development Services
-                </h3>
-                <p className="text-stone-700 font-medium">End-to-end development solutions for modern businesses</p>
-              </motion.div>
+        {/* Services Section */}
+        <section id="services" className="py-32 px-6">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h3 className="text-4xl md:text-5xl font-bold mb-6">
+                Our <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Services</span>
+              </h3>
+              <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+                End-to-end development solutions for modern businesses
+              </p>
+            </motion.div>
 
-              <div className="space-y-4">
-                {services.map((service, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02, x: 8 }}
-                    className={`${service.bg} border border-stone-200 rounded-xl p-6 cursor-pointer backdrop-blur-sm hover:shadow-lg transition-all`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 bg-gradient-to-br ${service.color} rounded-lg flex items-center justify-center text-white shadow-md`}>
-                        {service.icon}
-                      </div>
-                      <span className="text-lg font-semibold text-stone-900">{service.text}</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Stats */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="mb-8"
-              >
-                <h3 className="text-3xl md:text-4xl font-bold text-stone-900 mb-3">
-                  Proven Track Record
-                </h3>
-                <p className="text-stone-700 font-medium">Numbers that speak for our excellence</p>
-              </motion.div>
-
-              <div className="grid grid-cols-2 gap-6">
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-br from-stone-50 to-amber-50/50 border border-stone-200 rounded-xl p-6 text-center backdrop-blur-sm hover:shadow-lg transition-all"
-                  >
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-lg mb-4 text-stone-50">
-                      {stat.icon}
-                    </div>
-                    <div className="text-4xl font-bold text-stone-900 mb-2">{stat.value}</div>
-                    <div className="text-sm text-stone-700 font-medium">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((service, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  onHoverStart={() => setHoveredService(index)}
+                  onHoverEnd={() => setHoveredService(null)}
+                  className={`${service.bg} border border-gray-800 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300 group cursor-pointer relative overflow-hidden`}
+                >
+                  {/* Glow effect on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-pink-500/0 to-blue-500/0 group-hover:from-purple-500/5 group-hover:via-pink-500/5 group-hover:to-blue-500/5 transition-all duration-500" />
+                  
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 relative z-10 group-hover:scale-110 transition-transform duration-300`}>
+                    {service.icon}
+                  </div>
+                  
+                  <h4 className="text-xl font-semibold mb-4 relative z-10">{service.text}</h4>
+                  
+                  {hoveredService === index && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className="text-gray-400 text-sm mt-4 relative z-10"
+                    >
+                      Professional development with modern technologies and best practices
+                    </motion.p>
+                  )}
+                  
+                  <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-purple-400 group-hover:translate-x-2 transition-all mt-6 relative z-10" />
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Technologies Section */}
-        <section id="technologies" className="max-w-7xl mx-auto px-6 py-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h3 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">
-              Our Technology Stack
-            </h3>
-            <p className="text-stone-700 max-w-2xl mx-auto font-medium">
-              We leverage cutting-edge technologies to build robust, scalable software solutions
-            </p>
-          </motion.div>
+        <section id="technologies" className="py-32 px-6 bg-gradient-to-b from-transparent to-gray-900/50">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h3 className="text-4xl md:text-5xl font-bold mb-6">
+                Technology <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Stack</span>
+              </h3>
+              <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+                We leverage cutting-edge technologies to build robust, scalable software solutions
+              </p>
+            </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            {technologies.map((tech, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.02 }}
-                whileHover={{ scale: 1.1, y: -4 }}
-                className="px-6 py-3 bg-gradient-to-br from-white to-amber-50/80 border border-emerald-200 rounded-lg font-semibold text-stone-800 hover:shadow-md hover:border-emerald-300 transition-all cursor-default"
-              >
-                {tech}
-              </motion.div>
-            ))}
+            <div className="flex flex-wrap justify-center gap-4">
+              {technologies.map((tech, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.02 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="px-6 py-3 bg-gray-900/50 border border-gray-800 rounded-xl font-medium text-gray-300 hover:text-white hover:border-purple-500/50 hover:bg-gray-900 transition-all duration-300 cursor-default group relative"
+                >
+                  {/* Tech badge glow */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/10 group-hover:to-pink-500/10 rounded-xl transition-all duration-300" />
+                  <span className="relative z-10">{tech}</span>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section id="contact" className="max-w-7xl mx-auto px-6 py-20">
+        <section id="contact" className="py-32 px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-emerald-600 via-teal-600 to-green-600 rounded-3xl p-12 md:p-16 text-center relative overflow-hidden"
+            className="max-w-4xl mx-auto"
           >
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20"></div>
-            
-            <div className="relative z-10">
-              <h3 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Ready to Build Your Software Solution?
-              </h3>
-              <p className="text-xl text-white mb-4 max-w-2xl mx-auto font-medium">
-                Partner with Henixa Software Development Company and transform your business with custom software
-              </p>
-              <p className="text-lg text-white/95 font-medium">
-                Contact us through the header menu to get started on your project
-              </p>
+            <div className="relative overflow-hidden rounded-3xl border border-gray-800">
+              {/* Background gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-gray-900/50 to-pink-900/20" />
+              
+              {/* Animated orbs */}
+              <motion.div
+                className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.5, 0.3],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div
+                className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl"
+                animate={{
+                  scale: [1.2, 1, 1.2],
+                  opacity: [0.5, 0.3, 0.5],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+              />
+              
+              <div className="relative z-10 p-12 md:p-16 text-center">
+                <h3 className="text-4xl md:text-5xl font-bold mb-6">
+                  Ready to Build Your
+                  <span className="block bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Software Solution?
+                  </span>
+                </h3>
+                
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
+                >
+                  Partner with Henixa Software Development Company and transform your business with custom software
+                </motion.p>
+                
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="text-lg text-gray-400 mb-10"
+                >
+                  Start your digital transformation journey today
+                </motion.p>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <motion.button
+                    onClick={() => handleNavigation('/getstarted')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group px-8 py-3.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all flex items-center justify-center gap-2"
+                  >
+                    Get Started
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </motion.button>
+                  <motion.button
+                    onClick={() => handleNavigation('/viewwork')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-3.5 bg-transparent border-2 border-gray-700 text-gray-300 rounded-xl font-semibold hover:bg-gray-800/30 hover:border-purple-500/50 hover:text-white transition-all"
+                  >
+                    View Projects
+                  </motion.button>
+                </div>
+              </div>
             </div>
           </motion.div>
         </section>
 
-        {/* Footer */}
-        <footer className="border-t border-stone-200 bg-stone-50/50 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-6 py-8">
-            <div className="text-center text-stone-700">
-              <p className="font-semibold mb-2">© 2024 Henixa Software Development Company</p>
-              <p className="text-sm font-medium">Building Digital Future Through Innovation & Excellence</p>
+        {/* Clean Footer without navigation */}
+        <footer className="border-t border-gray-800/50 py-12 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col items-center gap-8">
+              <div className="text-center">
+                <div className="flex items-center gap-4 mb-4 justify-center">
+                  <img 
+                    src="/logo1.png" 
+                    alt="Henixa Logo" 
+                    className="w-20 h-20 object-contain"
+                  />
+                  <div>
+                    <h4 className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                      HENIXA
+                    </h4>
+                    <p className="text-sm text-gray-400">Software Solutions</p>
+                  </div>
+                </div>
+                <p className="text-gray-500 text-sm max-w-md mx-auto">
+                  Building Digital Future Through Innovation & Excellence
+                </p>
+              </div>
+
+              <div className="text-center">
+                <p className="text-gray-500 text-sm">
+                  ©2024 Henixa Software Development Company. All rights reserved.
+                </p>
+              </div>
             </div>
           </div>
         </footer>
+
+        {/* Mobile Menu Overlay - FIXED */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-gray-950/95 backdrop-blur-lg z-50 lg:hidden flex flex-col items-center justify-center"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <div className="text-center space-y-6 p-6" onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="absolute top-6 right-6 p-2 text-gray-400 hover:text-white"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <div className="mb-12">
+                <div className="flex items-center gap-3 mb-8">
+                  <img 
+                    src="/logo1.png" 
+                    alt="Henixa Logo" 
+                    className="w-16 h-16 object-contain"
+                  />
+                  <div>
+                    <h4 className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                      HENIXA
+                    </h4>
+                    <p className="text-sm text-gray-400">Software Solutions</p>
+                  </div>
+                </div>
+              </div>
+
+              {["Services", "Technologies", "About", "Projects", "Contact"].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => {
+                    if (item === "Projects") {
+                      handleNavigation('/viewwork');
+                    } else if (item === "Contact") {
+                      handleNavigation('/getstarted');
+                    } else {
+                      handleNavigation(`#${item.toLowerCase()}`);
+                    }
+                    setMobileMenuOpen(false);
+                  }}
+                  className="block text-2xl font-semibold text-gray-300 hover:text-white transition-colors py-2"
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* SEO Content - Hidden but crawlable */}
         <div className="sr-only" id="about">
