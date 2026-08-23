@@ -205,7 +205,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   verification: {
-    google: "rBqpNJ_UzTe2lm8I25aXiwP5tdGbHNezw8M8AcrJQJ4",
+    google:"hAAwPuKE2ry5WzZr7HfsJrQ71RSHfKswqyMybLogi5Q",
   },
   openGraph: {
     type: "website",
@@ -277,7 +277,7 @@ export default function RootLayout({
         {/* Google Verification */}
         <meta
           name="google-site-verification"
-          content="rBqpNJ_UzTe2lm8I25aXiwP5tdGbHNezw8M8AcrJQJ4"
+          content="hAAwPuKE2ry5WzZr7HfsJrQ71RSHfKswqyMybLogi5Q"
         />
 
         {/* SoftwareApplication Schema */}
