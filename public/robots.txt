@@ -1,0 +1,7 @@
+# *
+User-agent: *
+Allow: /
+
+
+# Sitemaps
+Sitemap: https://3Csportfolio.vercel.app/sitemap.xml
