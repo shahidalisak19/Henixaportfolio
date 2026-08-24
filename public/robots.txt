@@ -1,7 +1,6 @@
-# *
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /private/
 
-
-# Sitemaps
 Sitemap: https://3Csportfolio.vercel.app/sitemap.xml
