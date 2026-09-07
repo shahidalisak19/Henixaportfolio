@@ -78,7 +78,7 @@
 
 //   // Direct email link - opens email without form validation
 //   const openEmailDirect = () => {
-//     window.location.href = 'mailto:3Cs73@gmail.com';
+//     window.location.href = 'mailto:xxxxxx@gmail.com';
 //   };
 
 //   // Form submission with validation - sends pre-filled email
@@ -112,11 +112,11 @@
 // Sent via 3Cs Software Development Company Contact Form
 //     `.trim();
 
-//     window.location.href = `mailto:3Cs73@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+//     window.location.href = `mailto:xxxxxx@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 //   };
 
 //   const openWhatsApp = () => {
-//     const phoneNumber = "+923301534132";
+//     const phoneNumber = "+923342684555";
 //     const message = `Hi 3Cs! I'm interested in discussing a software development project.
 
 // Project Type: ${formData.projectType || 'To be discussed'}
@@ -296,7 +296,7 @@
 //                       Send detailed project requirements and get a comprehensive proposal
 //                     </p>
 //                     <div className="flex items-center text-emerald-700 font-medium">
-//                       <span>3Cs73@gmail.com</span>
+//                       <span>xxxxxx@gmail.com</span>
 //                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
 //                     </div>
 //                   </div>
@@ -540,7 +540,7 @@
 //           </p>
 //           <h2>Contact Methods - Email and WhatsApp</h2>
 //           <p>
-//             Reach 3Cs Software Development Company via email at 3Cs73@gmail.com for detailed project inquiries and proposals. For quick consultations and instant responses, connect with us on WhatsApp. We guarantee a response within 24 hours to all project inquiries.
+//             Reach 3Cs Software Development Company via email at xxxxxx@gmail.com for detailed project inquiries and proposals. For quick consultations and instant responses, connect with us on WhatsApp. We guarantee a response within 24 hours to all project inquiries.
 //           </p>
 //           <h2>Software Development Services Available</h2>
 //           <ul>
@@ -646,7 +646,7 @@ export default function GetStarted() {
 
   // Direct email link - opens email without form validation
   const openEmailDirect = () => {
-    window.location.href = 'mailto:3Cs73@gmail.com';
+    window.location.href = 'mailto:xxxxxx@gmail.com';
   };
 
   // Form submission with validation - sends pre-filled email
@@ -680,11 +680,11 @@ ${formData.description}
 Sent via 3Cs Software Development Company Contact Form
     `.trim();
 
-    window.location.href = `mailto:3Cs73@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:xxxxxx@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   const openWhatsApp = () => {
-    const phoneNumber = "+923301534132";
+    const phoneNumber = "+923342684555";
     const message = `Hi 3Cs! I'm interested in discussing a software development project.
 
 Project Type: ${formData.projectType || 'To be discussed'}
@@ -908,7 +908,7 @@ I'd like to learn more about your services.`;
                       Send detailed project requirements and get a comprehensive proposal
                     </p>
                     <div className="flex items-center text-purple-300 font-medium">
-                      <span>3Cs73@gmail.com</span>
+                      <span>xxxxxx@gmail.com</span>
                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
@@ -1270,7 +1270,7 @@ I'd like to learn more about your services.`;
           </p>
           <h2>Contact Methods - Email and WhatsApp</h2>
           <p>
-            Reach 3Cs Software Development Company via email at 3Cs73@gmail.com for detailed project inquiries and proposals. For quick consultations and instant responses, connect with us on WhatsApp. We guarantee a response within 24 hours to all project inquiries.
+            Reach 3Cs Software Development Company via email at xxxxxx@gmail.com for detailed project inquiries and proposals. For quick consultations and instant responses, connect with us on WhatsApp. We guarantee a response within 24 hours to all project inquiries.
           </p>
           <h2>Software Development Services Available</h2>
           <ul>
